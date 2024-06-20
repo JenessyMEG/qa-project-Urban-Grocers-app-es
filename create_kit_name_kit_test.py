@@ -32,42 +32,41 @@ def negative_assert_no_name(name):
     assert kit_response.status_code == 400
 
     assert kit_response.json()["code"] == 400
- y data
+
     assert kit_response.json()["message"] == "No se enviaron todos los parámetros requeridos"
 
 # Prueba 1. El número permitido de caracteres (1)
 
 def test_1_one_character_name_get_success_response():
-    positive_assert("a")
+    positive_assert(data.one_letter)
 
 # Prueba 2. El número permitido de caracteres (511)
 def test_2_allowed_numbers_name_get_success_response():
-    positive_assert("AbcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdAbcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabC")
+    positive_assert(data.character_511)
 
 # Prueba 3: El número de caracteres es menor que la cantidad permitida (0):
 def test_3_zero_number_characteres_name_get_error_response():
-    negative_assert_no_name("")
+    negative_assert_no_name(data.character_zero)
 
 #Prueba 4. El número de caracteres es mayor que la cantidad permitida (512):
 def test_4_greater_number_characteres_name_get_error_response():
-    negative_assert_no_name ("AbcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdAbcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcD")
-
+    negative_assert_no_name (data.character_512)
 #Prueba 5. Se permiten caracteres especiales:
 def test_5_spacial_characteres_name_get_success_response():
-    positive_assert("%@")
+    positive_assert(data.special_character)
 
 #Prueba 6. Se permiten espacios:
 def test_6_spacial_name_get_success_response():
-    positive_assert(" A Aaa ")
+    positive_assert(data.space_character)
 
 # Prueba 7.  Se permiten números:
 def test_7_number_passed_name_get_success_response():
-    positive_assert("123")
+    positive_assert(data.number_characters)
 
 #Prueba 8. El parámetro no se pasa en la solicitud:
 def test_8_parameter_not_passed_name_get_error_response():
-    negative_assert_no_name("")
+    negative_assert_no_name(data.none_character)
 
 #Prueba 9. Se ha pasado un tipo de parámetro diferente (número):
 def test_9_diferent_parameter_name_get_error_response():
-    negative_assert_no_name(123)
+    negative_assert_no_name(data.character_number)
